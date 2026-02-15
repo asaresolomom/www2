@@ -1,0 +1,461 @@
+/* ============================================
+   MODERN & MINIMAL - BUNDLE STORE
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #007AFF;
+    --success: #34C759;
+    --text: #1a1a1a;
+    --text-secondary: #666;
+    --bg: #f8f8f8;
+    --border: #e5e5e5;
+    --white: #ffffff;
+    --radius: 8px;
+    --transition: all 0.2s ease;
+}
+
+/* ============================================
+   GENERAL STYLES
+   ============================================ */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    background: var(--white);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+.header-content h1 {
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.logo p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+
+/* ============================================
+   BUNDLES SECTION
+   ============================================ */
+
+.bundles-section {
+    margin-bottom: 2.5rem;
+}
+
+.bundles-section h2 {
+    color: var(--text);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.bundles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.2rem;
+}
+
+/* ============================================
+   BUNDLE CARD
+   ============================================ */
+
+.bundle-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.bundle-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.bundle-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+}
+
+.bundle-badge {
+    display: none;
+}
+
+.bundle-card h3 {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.bundle-data {
+    color: var(--primary);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.bundle-validity {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.bundle-price {
+    color: var(--success);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+
+/* ============================================
+   CHECKOUT SECTION
+   ============================================ */
+
+.checkout-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.checkout-wrapper h3 {
+    color: var(--text);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Selected Bundle Display */
+.selected-bundle {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selected-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.selected-icon {
+    font-size: 2rem;
+}
+
+.selected-details {
+    text-align: left;
+}
+
+.selected-name {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.selected-data {
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+/* Checkout Form */
+.checkout-form {
+    background: var(--bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.form-group small {
+    display: block;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+}
+
+/* Buttons */
+.btn-buy {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-buy:hover {
+    background: #0051D5;
+}
+
+.btn-buy:active {
+    transform: scale(0.98);
+}
+
+.btn-buy:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Checkout Info */
+.checkout-info {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+/* ============================================
+   FLOATING WHATSAPP BUTTON
+   ============================================ */
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    transition: var(--transition);
+    z-index: 100;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+
+.notification {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--white);
+    border-left: 4px solid;
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+    z-index: 200;
+    max-width: 320px;
+}
+
+.notification.success {
+    border-left-color: var(--success);
+}
+
+.notification.error {
+    border-left-color: #FF3B30;
+}
+
+.notification p {
+    margin: 0.4rem 0;
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    background: var(--white);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .header {
+        padding: 1.5rem;
+    }
+
+    .header-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .bundles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .bundle-card {
+        padding: 1.2rem;
+    }
+
+    .bundle-icon {
+        font-size: 1.8rem;
+    }
+
+    .checkout-section {
+        padding: 1.2rem;
+    }
+
+    .whatsapp-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 1.5rem;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .notification {
+        top: 1rem;
+        right: 1rem;
+        max-width: calc(90vw - 2rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content h1 {
+        font-size: 1.2rem;
+    }
+
+    .bundles-section h2 {
+        font-size: 1.2rem;
+    }
+
+    .bundles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .bundle-card {
+        padding: 1rem;
+    }
+
+    .bundle-icon {
+        font-size: 1.5rem;
+    }
+
+    .bundle-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .bundle-price {
+        font-size: 1.2rem;
+    }
+
+    .checkout-section {
+        padding: 1rem;
+    }
+
+    .form-group input {
+        padding: 0.8rem;
+        font-size: 16px;
+    }
+
+    .btn-buy {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+    }
+}

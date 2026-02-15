@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🟠 Asare Solomon - MTN UP2U Bundle Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">
+                🟠 Asare Solomon
+                <p>MTN UP2U Official Distributor</p>
+            </h1>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- BUNDLES SECTION -->
+        <section class="bundles-section">
+            <h2>📱 Available MTN UP2U Bundles</h2>
+            <div class="bundles-grid" id="bundlesContainer">
+                <!-- Bundles will be rendered here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- CHECKOUT SECTION -->
+        <section class="checkout-section">
+            <div class="checkout-wrapper">
+                <h3>📱 Checkout</h3>
+                
+                <!-- Selected Bundle Display -->
+                <div class="selected-bundle" id="selectedBundle">
+                    <p>Select a bundle to proceed</p>
+                </div>
+
+                <!-- Checkout Form -->
+                <form id="checkoutForm" class="checkout-form">
+                    <div class="form-group">
+                        <label for="phone">📞 Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            placeholder="0501234567" 
+                            required
+                            minlength="10"
+                        >
+                        <small>Where bundle will be sent</small>
+                    </div>
+
+                    <button type="submit" class="btn-buy">Buy Now</button>
+                </form>
+
+                <p class="checkout-info">
+                    ✅ Instant delivery | 🔒 Secure payment | 📊 100% verified
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/233501234567?text=Hi%20Asare!%20I%20want%20to%20buy%20MTN%20bundles" 
+       target="_blank" 
+       class="whatsapp-btn" 
+       title="Chat on WhatsApp">
+        💬
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 Asare Solomon | MTN UP2U Distributor | Powered by Paystack</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/payment.js"></script>
+    <script src="index.js"></script>
+    
+    <!-- Paystack SDK -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</body>
+</html>
