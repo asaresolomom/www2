@@ -1,332 +1,260 @@
-# 🚀 MTN UP2U Bundle Store
+# MTN UP2U Backend - Node.js Express Server
 
-A complete, production-ready platform for selling MTN UP2U data bundles with live Paystack payments.
+Complete backend for processing live payments with Paystack integration.
 
-## ✨ Features
+## 📋 Features
 
-- 📱 **Modern & Minimal UI** - Clean, professional design
-- 💳 **Paystack Integration** - Live payment processing
-- 🗄️ **MongoDB Database** - Transaction storage & management
-- 📊 **Admin Dashboard** - View all transactions & stats
-- 🔔 **Real-time Webhooks** - Instant payment verification
-- 🌐 **Full Stack** - Node.js backend + vanilla JavaScript frontend
-- 📈 **Production Ready** - Deploy to Render, Railway, or Heroku
-
----
-
-## 📁 Project Structure
-
-```
-mtn-bundles/
-├── index.html              # Main application interface
-├── index.js                # Bundle logic & form handling
-├── style.css               # Modern minimal styling
-├── js/
-│   └── payment.js          # Paystack payment module
-├── backend/
-│   ├── server.js           # Express API server
-│   ├── package.json        # Dependencies
-│   ├── .env                # Configuration (not in git)
-│   ├── .env.example        # Template for .env
-│   └── README.md           # Backend documentation
-├── .gitignore              # Git ignore file
-└── README.md               # This file
-```
-
----
+✅ Create transactions with Paystack reference  
+✅ Verify payments with Paystack API  
+✅ Receive Paystack webhooks for real-time updates  
+✅ Store all transactions in MongoDB  
+✅ Get transaction statistics  
+✅ Admin dashboard ready  
 
 ## 🚀 Quick Start
 
-### 1. Clone & Install
+### Step 1: Install Dependencies
 
 ```bash
-git clone https://github.com/your-username/mtn-bundles.git
-cd mtn-bundles/backend
+cd backend
 npm install
 ```
 
-### 2. Configure Environment
+### Step 2: Update .env Configuration
 
-Copy `.env.example` to `.env` and add your credentials:
+Open `backend/.env` and add:
 
-```bash
-PAYSTACK_PUBLIC_KEY=pk_live_YOUR_KEY
-PAYSTACK_SECRET_KEY=sk_live_YOUR_KEY
-MONGODB_URI=mongodb://localhost:27017/mtn-bundles
+```
+# Get from paystack.com > Settings > API Keys & Webhooks
+PAYSTACK_SECRET_KEY=sk_test_xxxxxxxxxxxxx
+PAYSTACK_PUBLIC_KEY=pk_test_xxxxxxxxxxxxx
+
+# Update these
+FRONTEND_URL=http://localhost:8000
 PORT=3000
-FRONTEND_URL=http://localhost:3000
+
+# MongoDB (local or cloud)
+MONGODB_URI=mongodb://localhost:27017/mtn-bundles
 ```
 
-Get Paystack keys: https://paystack.com/settings/api-keys-webhooks
+### Step 3: Setup MongoDB Locally
 
-### 3. Setup Database (Optional)
+**Option A: Install MongoDB Locally**
+- Download from https://www.mongodb.com/try/download/community
+- Install and run MongoDB service
 
-**Local MongoDB:**
+**Option B: Use MongoDB Atlas (Cloud - Recommended)**
+1. Go to https://www.mongodb.com/cloud/atlas
+2. Create free account
+3. Create cluster
+4. Get connection string: `mongodb+srv://user:password@cluster.mongodb.net/mtn-bundles`
+5. Update `MONGODB_URI` in .env
+
+### Step 4: Run Backend
+
 ```bash
-# Install MongoDB Community Edition
-# Start MongoDB service
-mongod
+# Development mode (auto-reload)
+npm run dev
+
+# Or production mode
+npm start
 ```
 
-**MongoDB Atlas (Cloud):**
+Server will run on: `http://localhost:3000`
+
+## 🔗 API Endpoints
+
+### 1. Create Transaction
 ```
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/mtn-bundles
-```
-
-### 4. Start Server
-
-```bash
-npm run dev          # Development with auto-reload
-npm start            # Production
-```
-
-Open: **http://localhost:3000**
-
----
-
-## 📊 Available Bundles
-
-| Bundle | Data | Price | Validity |
-|--------|------|-------|----------|
-| Lite | 1GB | ₵4.60 | 1 day |
-| Basic | 2GB | ₵8.50 | 3 days |
-| Standard | 3GB | ₵13.50 | 7 days |
-| Plus | 4GB | ₵23.50 | 14 days |
-
----
-
-## 🔌 API Endpoints
-
-### Create Transaction
-```http
 POST /api/transactions
-Content-Type: application/json
-
-{
-  "reference": "ref_abc123",
+Body: {
   "phone": "0501234567",
-  "amount": 8.50,
+  "amount": 4.60,
+  "reference": "DH_1234567890",
   "bundle": {
-    "id": 2,
-    "name": "MTN Basic",
-    "data": "2GB",
-    "price": 8.50
+    "id": 1,
+    "name": "MTN Lite",
+    "data": "1GB",
+    "price": 4.60,
+    "validity": "7 Days"
   }
 }
 ```
 
-### Get All Transactions
-```http
+### 2. Verify Payment
+```
+GET /api/verify-payment/DH_1234567890
+```
+
+### 3. Get All Transactions
+```
 GET /api/transactions
 ```
 
-### Get by Phone
-```http
+### 4. Get Transaction by ID
+```
+GET /api/transactions/64a5c3e2f1234567890abc12
+```
+
+### 5. Get Transactions by Phone
+```
 GET /api/transactions/phone/0501234567
 ```
 
-### Verify Payment
-```http
-GET /api/verify-payment/ref_abc123
+### 6. Health Check
 ```
-
-### Health Check
-```http
 GET /api/health
 ```
 
----
+## 🔌 Paystack Webhook Setup
 
-## 🚀 Deployment
+1. Go to https://paystack.com/
+2. Sign in to dashboard
+3. Settings → API Keys & Webhooks
+4. Under Webhooks, set URL to:
+   ```
+   https://yourdomain.com/api/webhooks/paystack
+   ```
+5. Select events: `charge.success`, `charge.failed`
 
-### Deploy to Render (Free)
+## 🌐 Deployment Options
 
-1. Push code to GitHub
-2. Go to **render.com**
-3. New Web Service → Connect GitHub repo
-4. **Build:** `npm install`
-5. **Start:** `node backend/server.js`
-6. Add environment variables in Render dashboard
-7. Deploy! 🎉
-
-### Deploy to Railway
-
-1. Push code to GitHub
-2. Go to **railway.app**
-3. New Project → Deploy from GitHub
-4. Select repo and add environment variables
-5. Deploy
-
-### Deploy to Heroku
-
+### Option 1: Heroku (Free)
 ```bash
+# Install Heroku CLI
+npm install -g heroku
+
+# Login
 heroku login
-heroku create your-app-name
+
+# Create app
+heroku create mtn-bundles
+
+# Set environment variables
+heroku config:set PAYSTACK_SECRET_KEY=sk_test_xxxxx
+heroku config:set PAYSTACK_PUBLIC_KEY=pk_test_xxxxx
+heroku config:set FRONTEND_URL=https://yourdomain.com
+
+# Deploy
 git push heroku main
-heroku config:set PAYSTACK_SECRET_KEY=sk_...
 ```
 
----
+### Option 2: Render (Free - Recommended)
+1. Go to https://render.com
+2. Create account
+3. New → Web Service
+4. Connect GitHub repo
+5. Configure environment variables
+6. Deploy
 
-## 🔧 Configure Paystack Webhook
+### Option 3: Railway/Cyclic.sh
+1. Go to https://railway.app or https://cyclic.sh
+2. Sign in with GitHub
+3. Create new project
+4. Connect repository
+5. Add environment variables
+6. Deploy
 
-1. Go to https://paystack.com/settings/developers
-2. Add webhook URL:
-   - **Production:** `https://your-domain.com/api/webhooks/paystack`
-   - **Local:** `http://YOUR_IP:3000/api/webhooks/paystack`
-3. Select event: `charge.complete`
-4. Save
-
----
-
-## 🗄️ Technologies Used
-
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB + Mongoose
-- **Payments:** Paystack API
-- **Hosting:** Render, Railway, Heroku
-
----
-
-## 📚 Documentation
-
-- [Backend Documentation](./backend/README.md) - API & setup
-- [Setup Guide](./backend/SETUP_GUIDE.md) - Detailed setup
-- [Deployment Guide](./backend/DEPLOYMENT_CHECKLIST.md) - Step-by-step deployment
-- [Quick Start](./backend/QUICK_START.md) - 3-minute setup
-
----
-
-## 🔒 Security
-
-- ✅ Environment variables for sensitive data
-- ✅ CORS enabled for frontend communication
-- ✅ Paystack webhook verification
-- ✅ MongoDB connection pooling
-- ✅ Error handling & logging
-
----
-
-## 📝 Environment Variables
-
-**Required in `.env`:**
-- `PAYSTACK_PUBLIC_KEY` - Paystack public key
-- `PAYSTACK_SECRET_KEY` - Paystack secret key (keep private!)
-- `MONGODB_URI` - MongoDB connection string
-- `PORT` - Server port (default: 3000)
-- `FRONTEND_URL` - Frontend URL for CORS
-- `NODE_ENV` - development | production
-
----
-
-## 🧪 Testing
-
-### Test Payment (Local)
-
-1. Start backend: `npm run dev`
-2. Open http://localhost:3000
-3. Select bundle → Enter phone → Click "Buy Now"
-4. Complete Paystack test payment
-5. See success message
-6. Check: http://localhost:3000/api/transactions
-
-### Test API Endpoints
-
+### Option 4: Your Own Server (VPS)
 ```bash
-# Create transaction
-curl -X POST http://localhost:3000/api/transactions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "reference": "test_ref_001",
-    "phone": "0501234567",
-    "amount": 8.50,
-    "bundle": {"id": 2, "name": "MTN Basic", "data": "2GB", "price": 8.50}
-  }'
+# SSH into server
+ssh user@your-server.com
 
-# Get all transactions
-curl http://localhost:3000/api/transactions
+# Clone repository
+git clone your-repo
 
-# Health check
-curl http://localhost:3000/api/health
+# Install Node.js (if not installed)
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Install PM2 (process manager)
+npm install -g pm2
+
+# Start backend with PM2
+cd backend
+npm install
+pm2 start server.js --name "mtn-backend"
+
+# Setup monitoring
+pm2 monit
 ```
 
----
+## 📱 Frontend Integration
 
-## 🐛 Troubleshooting
+Update `js/payment.js` to send transactions to backend:
 
-| Issue | Solution |
-|-------|----------|
-| **Port in use** | Change PORT in .env or kill process |
-| **MongoDB error** | Check connection string & IP whitelist |
-| **Paystack denied** | Verify SECRET_KEY is correct |
-| **CORS error** | Check FRONTEND_URL in .env |
-| **Webhook failing** | Webhook URL must be public (not localhost) |
-
----
-
-## 📈 Performance
-
-- Lightweight frontend (no frameworks)
-- Optimized database queries with indexes
-- Caching for bundle data
-- Async/await for non-blocking operations
-
----
-
-## 🔄 Git Workflow
-
-```bash
-# Clone
-git clone <repo-url>
-
-# Create branch
-git checkout -b feature/your-feature
-
-# Make changes
-git add .
-git commit -m "Add feature"
-
-# Push
-git push origin feature/your-feature
-
-# Create Pull Request
+```javascript
+async sendTransactionToBackend(transaction) {
+    try {
+        const response = await fetch('https://your-backend-url/api/transactions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                reference: transaction.reference,
+                phone: transaction.customer.phone,
+                amount: transaction.amount,
+                bundle: transaction.bundle
+            })
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Error sending to backend:', error);
+    }
+}
 ```
 
----
+## 💰 Monitor Payments
 
-## ⚠️ Important Notes
+Check dashboard at: `/api/transactions`
 
-1. **Never commit `.env`** - Add to `.gitignore` (already done)
-2. **Keep Paystack keys private** - Use environment variables
-3. **Test locally first** - Before pushing to production
-4. **Monitor logs** - Check backend console for errors
-5. **Update webhook** - After deploying to new domain
+Example response:
+```json
+{
+  "success": true,
+  "stats": {
+    "total": 25,
+    "successful": 23,
+    "pending": 2,
+    "failed": 0,
+    "totalRevenue": 234.50
+  },
+  "transactions": [...]
+}
+```
 
----
+## 🔒 Security Notes
+
+- Keep `.env` file private (add to .gitignore)
+- Use HTTPS in production
+- Validate all inputs on backend
+- Use webhook secret for verification
+- Set CORS properly for your domain
+
+## 🆘 Troubleshooting
+
+**MongoDB Connection Error:**
+- Check if MongoDB is running
+- Verify connection string in .env
+- Check firewall settings
+
+**Paystack Verification Fails:**
+- Verify SECRET_KEY is correct
+- Check Paystack test vs live keys
+- Ensure reference format matches
+
+**Webhook Not Working:**
+- Check backend URL is publicly accessible
+- Verify webhook URL in Paystack dashboard
+- Check firewall/port settings
 
 ## 📞 Support
 
-For issues:
-1. Check [Paystack Docs](https://paystack.com/docs)
-2. Check [MongoDB Docs](https://docs.mongodb.com)
-3. Review server logs
-4. Test with curl commands
+For Paystack issues: https://support.paystack.com
+For MongoDB help: https://docs.mongodb.com
+For Node.js docs: https://nodejs.org/docs
 
 ---
 
-## 📄 License
-
-MIT License - Free to use and modify
-
----
-
-## 👤 Author
-
-Asare Solomon  
-MTN UP2U Distributor  
-Ghana 🇬🇭
-
----
-
-**Ready to deploy?** Follow the [Deployment Guide](./backend/DEPLOYMENT_CHECKLIST.md) for step-by-step instructions. 🚀
+**Your backend is now ready to receive live payments! 🎉**
